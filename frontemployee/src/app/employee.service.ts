@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from './employee';
-import e from 'express';
+import {environment} from "../environments/environment"
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
     // URL of  API server
-  private apiServerUrl=" ";
+  private apiServerUrl=environment.apiBaseUrl;
 
   // Adding the HttpClient for  HTTP requests
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) { }
 
 
   // Method to fetch all\add\update\delete on data 
