@@ -3,6 +3,7 @@ export interface Employee{
     name:string;
     email:string;
     jobTitle:string;
-    imageUrl:string;
+    phone:string;
+    imgUrl:string;
     employeeId:string;
 }
