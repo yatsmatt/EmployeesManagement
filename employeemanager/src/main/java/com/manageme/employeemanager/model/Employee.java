@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Entity
 public class Employee implements Serializable {
+    //set up entity whit values and get/set func
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false,updatable = false)

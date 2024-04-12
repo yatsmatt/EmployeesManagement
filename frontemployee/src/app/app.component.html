@@ -1,53 +1,366 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mynav">
-  <a class="navbar-brand" href="#">Managment of employees</a>
+<div class="main-div">
+  <!-- nav bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mynav">
+    <a class="navbar-brand" href="#">Management of Employees</a>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">creat new employee</a>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn btn-primary my-2 my-sm-0"
+            data-toggle="modal"
+            data-target="#addEmployeeModal"
+            (click)="addEmployee()"
+          >
+            Add Employee
+          </button>
+        </li>
+      </ul>
 
-    <div class="searchBar">
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-      </form>
-    </div>
-    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-  </div>
-</nav>
-<!-- nav bar -->
-
-<main class="main row">
-  <div
-    class="carts col-sm-6 col-md-4 col-lg-2"
-    *ngFor="let employee of employees"
-  >
-    <div class="card mb-4 h-100">
-      <div class="div">
-        <img
-          class="img img-fluid rounded-circle card-img-top mx-auto"
-          src="{{ employee.imgUrl }}"
-          alt="Employee Image"
-        />
+      <div class="searchBar">
+        <!-- basic steps to use ngModelChange 
+        1.add ngModel
+        2.set up the name like name="index" value that you want to passe it to app.comp.ts
+        3.set #index="ngModel"
+        4.creat and write the logic of fun in app.comp.ts as example searchEmployees that take the same value
+        -->
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            type="search"
+            (ngModelChange)="searchEmployees(index.value)"
+            #index="ngModel"
+            ngModel
+            name="index"
+            id="searchName"
+            class="form-control mr-sm-2"
+            placeholder="Search employees..."
+          />
+        </form>
       </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ employee.name }}</h5>
-        <p class="card-text">{{ employee.email }}</p>
-        <p class="card-text">{{ employee.jobTitle }}</p>
-        <p class="card-text">{{ employee.phone }}</p>
-        <div class="divsetbutton">
-          <button class="btn btn-primary">Edit</button>
-          <button class="btn btn-danger btn-primary">Delete</button>
+    </div>
+  </nav>
+  <!-- nav bar -->
+  <!-- employee div -->
+  <main class="main row">
+    <div
+      class="carts col-sm-6 col-md-4 col-lg-2"
+      *ngFor="let employee of employees"
+    >
+      <div class="card mb-4 h-100">
+        <div class="div">
+          <img
+            class="img img-fluid rounded-circle card-img-top mx-auto"
+            src="{{ employee.imgUrl }}"
+            alt="Employee Image"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ employee.name }}</h5>
+          <p class="card-text">{{ employee.email }}</p>
+          <p class="card-text">{{ employee.jobTitle }}</p>
+          <p class="card-text">{{ employee.phone }}</p>
+          <div class="divsetbutton">
+            <!-- edit the employee -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="editEmployee"
+              data-toggle="modal"
+              data-target="#editEmployeeModal"
+              (click)="editEmployee(employee)"
+            >
+              Edit
+            </button>
+            <!-- edit the employee -->
+            <!-- delete the employee -->
+            <button
+              type="button"
+              class="btn btn-danger btn-primary"
+              id="deleteEmployee"
+              data-toggle="modal"
+              data-target="#deleteEmployeeModal"
+              (click)="deleteEmployee(employee)"
+            >
+              Delete
+            </button>
+            <!-- delete the employee -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- employee div -->
+  <!-- delete Employee -->
+  <div
+    class="modal fade"
+    id="deleteEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deleteEmployeeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form
+          #deleteEmployeeForm="ngForm"
+          (ngSubmit)="onDeleteEmployee(deleteEmployeeForm)"
+        >
+          <div class="modal-body">
+            <input
+              name="id"
+              ngModel="{{ deletedEmployee?.id }}"
+              type="text"
+              class="form-control"
+              id="id"
+              placeholder="Enter employee name"
+              required
+              hidden
+            />
+            <h5>
+              Are you sure you want to delete {{ deletedEmployee?.name }}?
+            </h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="closeDeleteEmployee"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- add Employee -->
+  <div
+    class="modal fade"
+    id="addEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+        </div>
+        <div class="modal-body">
+          <form
+            #addEmployeeForm="ngForm"
+            (ngSubmit)="onAddEmployee(addEmployeeForm)"
+          >
+            <div class="form-group">
+              <label for="employeeName">Name</label>
+              <input
+                name="name"
+                ngModel
+                type="text"
+                class="form-control"
+                id="employeeName"
+                placeholder="Enter employee name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeEmail">Email</label>
+              <input
+                name="email"
+                ngModel
+                type="email"
+                class="form-control"
+                id="employeeEmail"
+                placeholder="Enter employee email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeJobTitle">Job Title</label>
+              <input
+                name="jobTitle"
+                ngModel
+                type="text"
+                class="form-control"
+                id="employeeJobTitle"
+                placeholder="Enter employee job title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeePhone">Phone</label>
+              <input
+                name="phone"
+                ngModel
+                type="tel"
+                class="form-control"
+                id="employeePhone"
+                placeholder="Enter employee phone number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeurl">Image url</label>
+              <input
+                name="imgUrl"
+                ngModel
+                type="url"
+                class="form-control"
+                id="employeeUrl"
+                placeholder="Enter url of employee image"
+                required
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                id="closeAddEmployee"
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="addEmployeeForm.invalid"
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</main>
-
-<!-- <button class="btn btn-primary">Open Modal</button> -->
+  <!-- edit Employee -->
+  <div
+    class="modal fade"
+    id="editEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Employee</h5>
+        </div>
+        <div class="modal-body">
+          <!-- basic steps to use ngSubmit 
+           1.creat and write the logic of fun in app.comp.ts as example onEditEmployee that take the same value
+           2.set #editEmployeeForm="ngModel" to send to logic side
+           3.add ngModel for etch input that you want a value
+           4.set up a varible in app.comp.ts if you want to pull info from that var and add to input ngModel="{{ exampleVariable?.id }}"
+           6.set up the name like name="id" value that you want to passe it to app.comp.ts to take from the form
+           7.add a button in the form and make the type="submit"
+           -->
+          <form
+            #editEmployeeForm="ngForm"
+            (ngSubmit)="onEditEmployee(editEmployeeForm)"
+          >
+            <div class="form-group">
+              <label for="employeeName">Name</label>
+              <input
+                name="name"
+                ngModel="{{ editedEmployee?.name }}"
+                type="text"
+                class="form-control"
+                id="employeeName"
+                placeholder="Enter employee name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeEmail">Email</label>
+              <input
+                name="email"
+                ngModel="{{ editedEmployee?.email }}"
+                type="email"
+                class="form-control"
+                id="employeeEmail"
+                placeholder="Enter employee email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeJobTitle">Job Title</label>
+              <input
+                name="jobTitle"
+                ngModel="{{ editedEmployee?.jobTitle }}"
+                type="text"
+                class="form-control"
+                id="employeeJobTitle"
+                placeholder="Enter employee job title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeePhone">Phone</label>
+              <input
+                name="phone"
+                ngModel="{{ editedEmployee?.phone }}"
+                type="tel"
+                class="form-control"
+                id="employeePhone"
+                placeholder="Enter employee phone number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="employeeurl">Image url</label>
+              <input
+                name="imgUrl"
+                ngModel="{{ editedEmployee?.imgUrl }}"
+                type="url"
+                class="form-control"
+                id="employeeUrl"
+                placeholder="Enter url of employee image"
+                required
+              />
+              <input
+                name="id"
+                ngModel="{{ editedEmployee?.id }}"
+                type="text"
+                class="form-control"
+                id="employeeId"
+                placeholder="Enter url of employee image"
+                hidden
+              />
+              <input
+                name="employeeId"
+                ngModel="{{ editedEmployee?.employeeId }}"
+                type="text"
+                class="form-control"
+                hidden
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                id="closeEditEmployee"
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="saveEditEmployeeBtn"
+                [disabled]="editEmployeeForm.invalid"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

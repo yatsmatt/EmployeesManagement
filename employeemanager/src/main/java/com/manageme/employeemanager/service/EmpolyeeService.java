@@ -27,7 +27,6 @@ public class EmpolyeeService {
     public List<Employee> findAllEmployee(){
         return employeeRepo.findAll();
     }
-
     public Employee updateEmployee(Employee employee){
         return employeeRepo.save(employee);
     }
@@ -43,5 +42,4 @@ public class EmpolyeeService {
             throw new RuntimeException("Employee not found with id: " + id);
         }
     }
-
 }
