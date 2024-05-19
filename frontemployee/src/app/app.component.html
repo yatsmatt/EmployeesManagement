@@ -4,27 +4,8 @@
     <a class="navbar-brand" href="#">Management of Employees</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <button
-            type="button"
-            class="btn btn-primary my-2 my-sm-0"
-            data-toggle="modal"
-            data-target="#addEmployeeModal"
-            (click)="addEmployee()"
-          >
-            Add Employee
-          </button>
-        </li>
-      </ul>
-
-      <div class="searchBar">
-        <!-- basic steps to use ngModelChange 
-        1.add ngModel
-        2.set up the name like name="index" value that you want to passe it to app.comp.ts
-        3.set #index="ngModel"
-        4.creat and write the logic of fun in app.comp.ts as example searchEmployees that take the same value
-        -->
+      <ul class="navbar-nav mr-auto"></ul>
+      <div class="right-container">
         <form class="form-inline my-2 my-lg-0">
           <input
             type="search"
@@ -37,6 +18,15 @@
             placeholder="Search employees..."
           />
         </form>
+        <button
+          type="button"
+          class="btn btn-primary my-2 my-sm-0"
+          data-toggle="modal"
+          data-target="#addEmployeeModal"
+          (click)="addEmployee()"
+        >
+          Add Employee
+        </button>
       </div>
     </div>
   </nav>
