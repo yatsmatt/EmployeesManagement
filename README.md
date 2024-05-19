@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-#🚀 Employee Management System
+#Employee Management System
 
 #Welcome to the Employee Management System! This project aims to simplify the process of managing employees within an organization. Built with Java Spring Boot for the backend and Angular for the frontend, this system offers a seamless experience for both administrators and employees.
 
@@ -17,8 +16,8 @@
 #Database: Mysql
 #Other Tools: Bootstrap
 
-#I want to thank amigoscode that help me with the first project using those Technologies
-=======
+# #I want to thank amigoscode that help me with the first project using those Technologies
+
 # 🚀 Employee Management System
 
 Welcome to the Employee Management System! This project aims to simplify the process of managing employees within an organization. Built with Java Spring Boot for the backend and Angular for the frontend, this system offers a seamless experience for both administrators and employees.
@@ -40,4 +39,5 @@ Other Tools: Bootstrap
 
 🙏 Contributing:
 I want to thank amigoscode that help me with the first project using those Technologies
->>>>>>> 592e53274351faac604e8fe2b5398bf95a7e664b
+
+> > > > > > > 592e53274351faac604e8fe2b5398bf95a7e664b
