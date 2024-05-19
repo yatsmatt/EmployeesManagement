@@ -1,4 +1,18 @@
 
+.navbar-collapse {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  }
+  
+  .right-container {
+    display: flex;
+    align-items: center;
+  }
+
+  
+
+  
 .w-60 {
     width: 60px;
 }
